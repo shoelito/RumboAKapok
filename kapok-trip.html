@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kapok Music Festival 🌿 — Logística del viaje</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --border: #1e1e2e;
+      --accent1: #a855f7;
+      --accent2: #22d3ee;
+      --accent3: #f472b6;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f0020 0%, #000a1a 50%, #0f1020 100%);
+      padding: 60px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(168,85,247,.25) 0%, transparent 70%),
+                  radial-gradient(ellipse at 80% 80%, rgba(34,211,238,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(168,85,247,.2);
+      border: 1px solid var(--accent1);
+      color: var(--accent1);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(90deg, #a855f7, #22d3ee, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+    .hero-crew {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .crew-chip {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .crew-chip.driver {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    section { margin-bottom: 48px; }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .card-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .card-row .card { flex: 1; min-width: 220px; }
+
+    /* ── ITINERARY ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent1), var(--accent2));
+    }
+    .t-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .t-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      z-index: 1;
+    }
+    .t-dot.purple { background: rgba(168,85,247,.2); border: 2px solid var(--accent1); }
+    .t-dot.cyan   { background: rgba(34,211,238,.2);  border: 2px solid var(--accent2); }
+    .t-dot.pink   { background: rgba(244,114,182,.2); border: 2px solid var(--accent3); }
+    .t-dot.green  { background: rgba(52,211,153,.2);  border: 2px solid var(--green); }
+    .t-body { padding-top: 6px; }
+    .t-time { font-size: .75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+    .t-title { font-weight: 700; font-size: 1rem; margin: 2px 0; }
+    .t-desc { font-size: .88rem; color: var(--muted); }
+
+    /* ── MENUS ── */
+    .menu-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .tab-btn.active {
+      background: var(--accent1);
+      border-color: var(--accent1);
+      color: #fff;
+    }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+
+    .meal-block {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .meal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .meal-name { font-weight: 700; }
+    .meal-price {
+      background: rgba(34,211,238,.1);
+      border: 1px solid rgba(34,211,238,.3);
+      color: var(--accent2);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .meal-items { font-size: .88rem; color: var(--muted); }
+    .meal-resto {
+      font-size: .8rem;
+      color: var(--accent1);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .meal-resto a { color: inherit; text-decoration: none; }
+    .meal-resto a:hover { text-decoration: underline; }
+
+    /* ── COSTS ── */
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .cost-person {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    .cost-person.special {
+      border-color: var(--yellow);
+      background: rgba(251,191,36,.05);
+    }
+    .cost-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 10px;
+    }
+    .cost-person-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 12px; }
+    .cost-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: .85rem;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .cost-line:last-of-type { border: none; }
+    .cost-label { color: var(--muted); }
+    .cost-val { font-weight: 600; }
+    .cost-total-line {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 2px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .total-chip {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .note-box {
+      background: rgba(251,191,36,.07);
+      border: 1px solid rgba(251,191,36,.3);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .88rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .note-box strong { color: var(--yellow); }
+
+    /* ── MAP & INFO ── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-item label {
+      display: block;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .info-item p { font-weight: 600; }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      background: rgba(168,85,247,.15);
+      border: 1px solid var(--accent1);
+      color: var(--accent1);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .9rem;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: background .2s;
+    }
+    .map-link:hover { background: rgba(168,85,247,.3); }
+
+    /* ── TIPS ── */
+    .tips-list { list-style: none; }
+    .tips-list li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .92rem;
+    }
+    .tips-list li:last-child { border: none; }
+    .tip-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--muted);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🌿 Sábado 20 · Domingo 21 de Junio 2026</div>
+  <h1>Kapok Music Festival</h1>
+  <p class="hero-sub">Uvita, Puntarenas · Playa Chamán · Grupo de 4</p>
+  <div class="hero-crew">
+    <span class="crew-chip">🎵 Joel</span>
+    <span class="crew-chip driver">🚗 Johan <small>(transporte)</small></span>
+    <span class="crew-chip">🎵 Eithan</span>
+    <span class="crew-chip">🎵 Checo</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── EVENTO ── -->
+  <section>
+    <div class="section-title">📍 El Evento</div>
+    <div class="card-row">
+      <div class="card">
+        <div style="font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Festival</div>
+        <div style="font-weight:800;font-size:1.15rem;margin-bottom:4px">Kapok Music Festival</div>
+        <div style="color:var(--muted);font-size:.9rem">Programación diurna: sonido, yoga, ceremonias y movimiento consciente. Tras la puesta del sol se convierte en experiencias electrónicas inmersivas.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Detalles</div>
+        <div class="info-grid">
+          <div class="info-item"><label>Fecha</label><p>Sábado 20 de Junio</p></div>
+          <div class="info-item"><label>Hora inicio</label><p>12:00 p.m.</p></div>
+          <div class="info-item"><label>Entrada p/persona</label><p>$60.00</p></div>
+          <div class="info-item"><label>Formato</label><p>Día + Noche</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOSPEDAJE ── -->
+  <section>
+    <div class="section-title">🏠 Hospedaje</div>
+    <div class="card">
+      <div style="font-weight:800;font-size:1.1rem;margin-bottom:12px">Camino a Playa Chamán, Uvita</div>
+      <div class="info-grid" style="margin-bottom:16px">
+        <div class="info-item"><label>Check-in</label><p>Sáb 20 Jun · 3:00 p.m.</p></div>
+        <div class="info-item"><label>Check-out</label><p>Dom 21 Jun · 12:00 p.m.</p></div>
+        <div class="info-item"><label>Costo total</label><p style="color:var(--green)">₡34,785.90</p></div>
+        <div class="info-item"><label>≈ en dólares</label><p>≈ $75.13 USD</p></div>
+      </div>
+      <a class="map-link" href="https://maps.google.com/?q=9.151915,-83.732067" target="_blank">
+        🗺 Abrir en Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- ── ITINERARIO ── -->
+  <section>
+    <div class="section-title">🗓 Itinerario</div>
+
+    <div style="font-weight:700;color:var(--accent1);margin-bottom:12px;font-size:.95rem">Sábado 20 de Junio</div>
+    <div class="timeline" style="margin-bottom:28px">
+
+      <div class="t-item">
+        <div class="t-dot cyan">🌅</div>
+        <div class="t-body">
+          <div class="t-time">7:00 – 9:00 a.m.</div>
+          <div class="t-title">Desayuno y salida</div>
+          <div class="t-desc">Desayuno ligero antes de partir. Johan recoge al grupo. Ruta hacia Uvita (~3-4h desde GAM).</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot green">🏖</div>
+        <div class="t-body">
+          <div class="t-time">11:00 a.m. – 12:00 p.m.</div>
+          <div class="t-title">Llegada · Playa Chamán o Ballena</div>
+          <div class="t-desc">Antes de entrar al festival, disfruten la playa, el Parque Nacional Marino Ballena y el famoso "whale tail". Protetor solar obligatorio.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot purple">🍽</div>
+        <div class="t-body">
+          <div class="t-time">12:00 – 1:30 p.m.</div>
+          <div class="t-title">Almuerzo ligero</div>
+          <div class="t-desc">Comer liviano antes del festival. Ver opciones de menú abajo.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot purple">🎵</div>
+        <div class="t-body">
+          <div class="t-time">2:00 p.m. en adelante</div>
+          <div class="t-title">Kapok Music Festival</div>
+          <div class="t-desc">Programación diurna: sonido, yoga, ceremonias. Programación nocturna: electrónica inmersiva. Hidratarse constantemente, evitar exceso de alcohol.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot cyan">🍴</div>
+        <div class="t-body">
+          <div class="t-time">7:00 – 8:00 p.m.</div>
+          <div class="t-title">Cena (festival o zona)</div>
+          <div class="t-desc">Cena liviana dentro del evento (food trucks) o restaurante cercano antes de que empiece la sesión nocturna.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot pink">🌙</div>
+        <div class="t-body">
+          <div class="t-time">3:00 p.m.</div>
+          <div class="t-title">Check-in hospedaje</div>
+          <div class="t-desc">Dejan maletas en el alojamiento. Ducha rápida si es posible antes de la noche.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="font-weight:700;color:var(--accent2);margin-bottom:12px;font-size:.95rem">Domingo 21 de Junio</div>
+    <div class="timeline">
+
+      <div class="t-item">
+        <div class="t-dot green">🌿</div>
+        <div class="t-body">
+          <div class="t-time">8:00 – 9:30 a.m.</div>
+          <div class="t-title">Desayuno de recuperación 🩹</div>
+          <div class="t-desc">El grupo probablemente esté crudos y deshidratados. Ver menú de recuperación abajo. Electrolitos, frutas, caldos.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot cyan">🏖</div>
+        <div class="t-body">
+          <div class="t-time">10:00 – 11:30 a.m.</div>
+          <div class="t-title">Última visita a la playa (opcional)</div>
+          <div class="t-desc">Si hay energía, media vuelta por Playa Uvita antes del check-out. El agua fría ayuda con el recovery.</div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot pink">🚗</div>
+        <div class="t-body">
+          <div class="t-time">12:00 p.m.</div>
+          <div class="t-title">Check-out y regreso</div>
+          <div class="t-desc">Checkout, empacar y Johan maneja de vuelta. Parada recomendada en el camino para snacks o café.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── MENÚS ── -->
+  <section>
+    <div class="section-title">🍽 Opciones de Menú</div>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:18px">
+      Menú pensado para evento de música electrónica: liviano, hidratante y energético. Elige uno de los 3 estilos.
+    </p>
+
+    <div class="menu-tabs">
+      <button class="tab-btn active" onclick="showMenu('a', this)">🌿 Menú A · Wellness</button>
+      <button class="tab-btn" onclick="showMenu('b', this)">🇨🇷 Menú B · Tico</button>
+      <button class="tab-btn" onclick="showMenu('c', this)">🌊 Menú C · Costero</button>
+    </div>
+
+    <!-- MENÚ A -->
+    <div class="menu-panel active" id="menu-a">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;padding:10px 14px;background:rgba(168,85,247,.08);border-radius:8px;border-left:3px solid var(--accent1)">
+        🌿 <strong>Wellness / Ligero:</strong> Ideal para festival. Fácil digestión, alta hidratación, buena energía sin pesadez.
+      </p>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">☀️ Desayuno · Sáb 20</div>
+          <div class="meal-price">~$8–10 p/p</div>
+        </div>
+        <div class="meal-items">Smoothie bowl de mango y banano · Granola · Tostadas de aguacate · Jugo natural de naranja</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Sibu+Restaurant+Uvita" target="_blank">Sibu Restaurant & Coffee Store</a> · Ctra. principal Uvita</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌤 Almuerzo · Sáb 20 (antes del festival)</div>
+          <div class="meal-price">~$10–14 p/p</div>
+        </div>
+        <div class="meal-items">Bowl de arroz + vegetales salteados + proteína a la plancha (atún o pollo) · Agua de coco</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Beehive+Mediterranean+Uvita" target="_blank">Beehive Mediterranean Restaurant</a> · Carretera Costanera</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌙 Cena · Sáb 20</div>
+          <div class="meal-price">~$10–15 p/p</div>
+        </div>
+        <div class="meal-items">Tacos de pescado · Ensalada fresca · Agua de coco o limonada. Preferir food trucks del festival.</div>
+        <div class="meal-resto">📍 Food trucks del Kapok Festival o <a href="https://maps.google.com/?q=Ballena+Bistro+Uvita" target="_blank">Ballena Bistro</a></div>
+      </div>
+      <div class="meal-block" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.04)">
+        <div class="meal-header">
+          <div class="meal-name">🩹 Desayuno Recovery · Dom 21</div>
+          <div class="meal-price">~$8–12 p/p</div>
+        </div>
+        <div class="meal-items">
+          <strong style="color:var(--green)">Para el crudo:</strong> Agua de coco · Suero oral o electrolitos · Caldo de pollo · Frutas (banano, melón) · Tostadas con huevo revuelto · Gatorade
+        </div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Sibu+Restaurant+Uvita" target="_blank">Sibu Restaurant</a> o pulpería/supermercado cercano para suero oral</div>
+      </div>
+    </div>
+
+    <!-- MENÚ B -->
+    <div class="menu-panel" id="menu-b">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;padding:10px 14px;background:rgba(34,211,238,.08);border-radius:8px;border-left:3px solid var(--accent2)">
+        🇨🇷 <strong>Tico clásico:</strong> Cocina costarricense tradicional, accesible y abundante. Lo que habla el cuerpo en tierras ticas.
+      </p>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">☀️ Desayuno · Sáb 20</div>
+          <div class="meal-price">~$6–9 p/p</div>
+        </div>
+        <div class="meal-items">Gallo pinto con huevos · Natilla · Jugo de cas o naranja · Café con leche</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Sibu+Restaurant+Uvita" target="_blank">Sibu Restaurant</a> o soda local en Uvita centro</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌤 Almuerzo · Sáb 20 (liviano pre-festival)</div>
+          <div class="meal-price">~$8–12 p/p</div>
+        </div>
+        <div class="meal-items">Casado liviano: arroz blanco + ensalada + pescado al vapor o pollo a la plancha + agua fresca</div>
+        <div class="meal-resto">📍 Soda local en Uvita · Precio promedio más accesible</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌙 Cena · Sáb 20</div>
+          <div class="meal-price">~$10–15 p/p</div>
+        </div>
+        <div class="meal-items">Arroz con camarones · Patacones · Refresco natural</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Ballena+Bistro+Uvita" target="_blank">Ballena Bistro</a> · Al sur de Uvita</div>
+      </div>
+      <div class="meal-block" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.04)">
+        <div class="meal-header">
+          <div class="meal-name">🩹 Desayuno Recovery · Dom 21</div>
+          <div class="meal-price">~$6–10 p/p</div>
+        </div>
+        <div class="meal-items">
+          <strong style="color:var(--green)">Para el crudo:</strong> Caldo de res o pollo bien caliente · Gallo pinto suave · Agua de coco · Jugo de naranja · Aspirina o ibuprofeno (llevar de casa)
+        </div>
+        <div class="meal-resto">📍 Soda local o <a href="https://maps.google.com/?q=Sibu+Restaurant+Uvita" target="_blank">Sibu</a></div>
+      </div>
+    </div>
+
+    <!-- MENÚ C -->
+    <div class="menu-panel" id="menu-c">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;padding:10px 14px;background:rgba(244,114,182,.08);border-radius:8px;border-left:3px solid var(--accent3)">
+        🌊 <strong>Costero / Fusión:</strong> Lo mejor del mar y la cocina fusión que ofrece la zona sur de Costa Rica.
+      </p>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">☀️ Desayuno · Sáb 20</div>
+          <div class="meal-price">~$10–14 p/p</div>
+        </div>
+        <div class="meal-items">Bagel fresco con salmón o aguacate · Yogurt griego con frutas tropicales · Café de especialidad</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Sibu+Coffee+Store+Uvita" target="_blank">Sibu Coffee Store</a> · Especialidad en repostería artesanal</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌤 Almuerzo · Sáb 20 (pre-festival)</div>
+          <div class="meal-price">~$12–16 p/p</div>
+        </div>
+        <div class="meal-items">Tuna poke bowl · Mahi-mahi sandwich · Coco mango curry · Agua de coco</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Ballena+Bistro+Uvita" target="_blank">Ballena Bistro</a> · Uno de los mejores de la zona</div>
+      </div>
+      <div class="meal-block">
+        <div class="meal-header">
+          <div class="meal-name">🌙 Cena · Sáb 20</div>
+          <div class="meal-price">~$12–18 p/p</div>
+        </div>
+        <div class="meal-items">Ceviche fresco · Causa limeña · Sushi roll de mariscos · Ramen ligero</div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Mestizo+Restaurant+Uvita" target="_blank">Mestizo Restaurant</a> · Fusión Perú–Japón–Costa Rica</div>
+      </div>
+      <div class="meal-block" style="border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.04)">
+        <div class="meal-header">
+          <div class="meal-name">🩹 Desayuno Recovery · Dom 21</div>
+          <div class="meal-price">~$8–12 p/p</div>
+        </div>
+        <div class="meal-items">
+          <strong style="color:var(--green)">Para el crudo:</strong> Agua de coco fresca · Smoothie tropical (banano + mango + jengibre + cúrcuma) · Tostadas con huevo · Electrolitos · Kombucha si hay disponible
+        </div>
+        <div class="meal-resto">📍 <a href="https://maps.google.com/?q=Ballena+Bistro+Uvita" target="_blank">Ballena Bistro</a> o <a href="https://maps.google.com/?q=Sibu+Restaurant+Uvita" target="_blank">Sibu Restaurant</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COSTOS ── -->
+  <section>
+    <div class="section-title">💰 División de Gastos</div>
+
+    <div class="note-box" style="margin-bottom:20px">
+      <strong>Regla del grupo:</strong> Johan aporta el transporte → entrada y hospedaje de Johan los cubren Joel, Eithan y Checo en partes iguales. Tipo de cambio usado: <strong>₡463 / $1 USD</strong>.
+    </div>
+
+    <div class="cost-grid">
+
+      <!-- Joel -->
+      <div class="cost-person">
+        <div class="cost-avatar" style="background:rgba(168,85,247,.2);border:2px solid var(--accent1)">🎧</div>
+        <div class="cost-person-name">Joel</div>
+        <div class="cost-line"><span class="cost-label">Su entrada</span><span class="cost-val">$60.00</span></div>
+        <div class="cost-line"><span class="cost-label">Parte de entrada Johan</span><span class="cost-val">$20.00</span></div>
+        <div class="cost-line"><span class="cost-label">Hospedaje (1/3)</span><span class="cost-val">$25.04</span></div>
+        <div class="cost-total-line">
+          <span>Total</span>
+          <span class="total-chip">$105.04</span>
+        </div>
+      </div>
+
+      <!-- Eithan -->
+      <div class="cost-person">
+        <div class="cost-avatar" style="background:rgba(34,211,238,.2);border:2px solid var(--accent2)">🎵</div>
+        <div class="cost-person-name">Eithan</div>
+        <div class="cost-line"><span class="cost-label">Su entrada</span><span class="cost-val">$60.00</span></div>
+        <div class="cost-line"><span class="cost-label">Parte de entrada Johan</span><span class="cost-val">$20.00</span></div>
+        <div class="cost-line"><span class="cost-label">Hospedaje (1/3)</span><span class="cost-val">$25.04</span></div>
+        <div class="cost-total-line">
+          <span>Total</span>
+          <span class="total-chip">$105.04</span>
+        </div>
+      </div>
+
+      <!-- Checo -->
+      <div class="cost-person">
+        <div class="cost-avatar" style="background:rgba(244,114,182,.2);border:2px solid var(--accent3)">🎶</div>
+        <div class="cost-person-name">Checo</div>
+        <div class="cost-line"><span class="cost-label">Su entrada</span><span class="cost-val">$60.00</span></div>
+        <div class="cost-line"><span class="cost-label">Parte de entrada Johan</span><span class="cost-val">$20.00</span></div>
+        <div class="cost-line"><span class="cost-label">Hospedaje (1/3)</span><span class="cost-val">$25.04</span></div>
+        <div class="cost-total-line">
+          <span>Total</span>
+          <span class="total-chip">$105.04</span>
+        </div>
+      </div>
+
+      <!-- Johan -->
+      <div class="cost-person special">
+        <div class="cost-avatar" style="background:rgba(251,191,36,.2);border:2px solid var(--yellow)">🚗</div>
+        <div class="cost-person-name" style="color:var(--yellow)">Johan</div>
+        <div class="cost-line"><span class="cost-label">Entrada</span><span class="cost-val" style="color:var(--green)">$0 (cubierta)</span></div>
+        <div class="cost-line"><span class="cost-label">Hospedaje</span><span class="cost-val" style="color:var(--green)">$0 (cubierto)</span></div>
+        <div class="cost-line"><span class="cost-label">Aporte</span><span class="cost-val" style="color:var(--yellow)">🚗 Transporte</span></div>
+        <div class="cost-total-line">
+          <span>Su costo</span>
+          <span style="color:var(--yellow);font-weight:800">Combustible + peajes</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABLA RESUMEN -->
+    <div class="card" style="overflow-x:auto">
+      <div style="font-weight:800;margin-bottom:14px;font-size:1rem">📊 Resumen de gastos totales</div>
+      <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+        <thead>
+          <tr style="color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em">
+            <th style="text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)">Concepto</th>
+            <th style="text-align:right;padding:8px 12px;border-bottom:1px solid var(--border)">Total</th>
+            <th style="text-align:right;padding:8px 12px;border-bottom:1px solid var(--border)">Joel</th>
+            <th style="text-align:right;padding:8px 12px;border-bottom:1px solid var(--border)">Eithan</th>
+            <th style="text-align:right;padding:8px 12px;border-bottom:1px solid var(--border)">Checo</th>
+            <th style="text-align:right;padding:8px 12px;border-bottom:1px solid var(--border)">Johan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border)">🎟 Entradas (4 × $60)</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$240.00</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$80.00</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$80.00</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$80.00</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--green)">$0</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border)">🏠 Hospedaje (₡34,785.90)</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$75.13</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$25.04</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$25.04</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right">$25.04</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--green)">$0</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border)">🚗 Transporte</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;font-weight:600;color:var(--yellow)">Johan</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--green)">$0</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--green)">$0</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--green)">$0</td>
+            <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;color:var(--yellow)">🚗 aporte</td>
+          </tr>
+          <tr style="font-weight:800;font-size:1rem">
+            <td style="padding:10px 12px">💰 TOTAL</td>
+            <td style="padding:10px 12px;text-align:right;color:var(--accent2)">$315.13</td>
+            <td style="padding:10px 12px;text-align:right;color:var(--accent1)">$105.04</td>
+            <td style="padding:10px 12px;text-align:right;color:var(--accent1)">$105.04</td>
+            <td style="padding:10px 12px;text-align:right;color:var(--accent1)">$105.04</td>
+            <td style="padding:10px 12px;text-align:right;color:var(--yellow)">Transp.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <strong>⚠️ Importante:</strong> Los costos de comida son personales y no están incluidos en el total. Se recomienda que alguien lleve un fondo común para gastos compartidos y cuadrar al final con Splitwise o similar.
+    </div>
+  </section>
+
+  <!-- ── TIPS ── -->
+  <section>
+    <div class="section-title">💡 Tips para el viaje</div>
+    <div class="card">
+      <ul class="tips-list">
+        <li><span class="tip-icon">💧</span><span>Llevar <strong>agua y electrolitos extra</strong> (Suero Oral, Gatorade). En festivales de electrónica la deshidratación es el riesgo #1.</span></li>
+        <li><span class="tip-icon">🌞</span><span>Protector solar SPF 50+ indispensable. La playa + festival al aire libre = quemadura garantizada sin él.</span></li>
+        <li><span class="tip-icon">💊</span><span>Llevar botiquín básico: ibuprofeno, antidiarreico, antiacido, band-aids, repelente de insectos.</span></li>
+        <li><span class="tip-icon">👟</span><span>Calzado cómodo para larga duración. Considerá chanclas para la playa y tenis para el festival.</span></li>
+        <li><span class="tip-icon">📱</span><span>Powerbank cargado. La batería muere en festivales y no siempre hay tomacorrientes disponibles.</span></li>
+        <li><span class="tip-icon">💵</span><span>Llevar efectivo en colones. Muchos negocios en Uvita no aceptan tarjeta o cobran comisión.</span></li>
+        <li><span class="tip-icon">🎒</span><span>Mochila pequeña para el festival: agua, snacks ligeros (nueces, frutas secas), ropa extra y abrigo para la noche.</span></li>
+        <li><span class="tip-icon">🚗</span><span>Johan: chequear llantas, aceite y combustible antes del viaje. Ruta por Costanera Sur puede tener baches.</span></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Generado para el squad · Kapok Music Festival 2026 · Uvita, Costa Rica 🌿<br>
+  <span style="font-size:.75rem;opacity:.5">Precios estimados. Tipo cambio: ₡463/$1 USD al 29/05/2026</span>
+</footer>
+
+<script>
+  function showMenu(id, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('menu-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
